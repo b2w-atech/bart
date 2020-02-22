@@ -1,23 +1,21 @@
 const axios = require('axios');
 
-const call = ({ url,
-    sellerIdIndex,
-    postalCodeFirstPartIndex,
-    postalCodeSecondPartIndex,
-    skuIndex
-}) => {
+const getRequestUrl = (competitor, competitorStructure, requestFields) => {
+  switch (competitor) {
+    case 'magazineluiza':
+      return `${competitorStructure.url}/${requestFields.postalCodeFirstPart}${requestFields.postalCodeSecondPart}/${requestFields.sku}/${requestFields.sellerName}.json`;
+      break;
 
-    console.log({ url,
-        sellerIdIndex,
-        postalCodeFirstPartIndex,
-        postalCodeSecondPartIndex,
-        skuIndex
-    })
-    /* return axios({
-        method: 'get',
-        url,
-        params
-    }); */
-}
+    case 'casasbahia':
+      return competitorStructure.url;
+      break;
 
-module.exports = { call };
+    default:
+      return '';
+  }
+};
+
+
+module.exports = {
+  getRequestUrl,
+};
